@@ -1,0 +1,29 @@
+{
+  "name": "Quizzer - Interactive Quiz App",
+  "short_name": "Quizzer",
+  "icons": [
+    {
+      "src": "icon.jpg",
+      "sizes": "192x192",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "icon.jpg",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.jpg",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "description": "Quizzer allows you to upload a json file with questions and makes them interactive.",
+  "theme_color": "#93C5FD",
+  "background_color": "#93C5FD",
+  "start_url": "/quizzer/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

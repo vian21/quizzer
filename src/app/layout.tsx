@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { env } from "process";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Quizzer</title>
+        <meta name="og:description" content="Quizz app for students" />
+        <meta name="application-name" content="Quizzer" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Quizzer" />
+        <meta name="description" content="Quizz app for students" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        <link rel="apple-touch-icon" href="/icon.jpg" />
+
+        <link
+          rel="manifest"
+          href={`${env.NEXT_PUBLIC_BASEPATH}/manifest.json`}
+        />
+        <link
+          rel="shortcut icon"
+          href={`${env.NEXT_PUBLIC_BASEPATH}/icon.jpg`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Quizzer" />
+        <meta property="og:site_name" content="Quizzer" />
+        <meta property="og:url" content="https://vian21.github.io/quizzer" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
