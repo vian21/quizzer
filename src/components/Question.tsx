@@ -7,9 +7,10 @@ interface QuestionProps {
     answer: string;
     explanation: string;
   };
+  index: number;
 }
 
-const Question = ({ question }: QuestionProps) => {
+const Question = ({ question, index }: QuestionProps) => {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const isCorrect = selectedChoice === question.answer;
@@ -29,7 +30,7 @@ const Question = ({ question }: QuestionProps) => {
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
       <div className="mb-6">
         <h2 className="text-lg font-medium text-gray-900">
-          {question.question}
+          {`${index + 1}. ${question.question}`}
         </h2>
       </div>
 

@@ -31,8 +31,8 @@ export default function Home() {
       </center>
 
       {questions &&
-        questions.map((question, key) => {
-          return <Question key={key} question={question} />;
+        questions.map((question, index) => {
+          return <Question key={index} question={question} index={index} />;
         })}
     </div>
   );
