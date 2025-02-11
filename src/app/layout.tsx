@@ -40,11 +40,11 @@ export default function RootLayout({
 
         <link
           rel="manifest"
-          href={`${env.NEXT_PUBLIC_BASEPATH}/manifest.json`}
+          href={`${env.NEXT_PUBLIC_BASEPATH ?? ""}/manifest.json`}
         />
         <link
           rel="shortcut icon"
-          href={`${env.NEXT_PUBLIC_BASEPATH}/icon.jpg`}
+          href={`${env.NEXT_PUBLIC_BASEPATH ?? ""}/icon.jpg`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Quizzer" />
