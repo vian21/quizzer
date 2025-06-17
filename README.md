@@ -24,9 +24,9 @@ Follow these instructions to create an exam question:
 2. Provide 4 multiple choice answers to the question as a list of key-value pairs "choices"
 3. Provide the correct answer for the question from the list of answers as key "answer"
 4. Provide an explanation as to why the answer is correct as key "explanation"
-
-You must generate the questions in the language of the context.
-You must respond as a JSON array with the following structure and the requested number of questions:
+5. You may also generate fill in the blank multiple choice question to emphasize certain keywords or concepts that students should remember
+6. Generate the questions in the language of the context. Don't change languages
+7. You must respond as a JSON array with the following structure and the requested number of questions:
 [{
     "question": "<question>",
     "choices": [
