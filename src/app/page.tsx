@@ -1,7 +1,7 @@
 "use client";
 
 import Question from "@/components/Question";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 
 const fileTypes = ["json"];
@@ -9,17 +9,23 @@ const fileTypes = ["json"];
 export default function Home() {
   const [questions, setQuestions] = useState([]);
   const [showAllAnswers, setShowAllAnswers] = useState(false);
+  const [fileName, setFileName] = useState<string>("");
 
-  const handleChange = (file: Blob) => {
+  const handleChange = (file: File) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const json = JSON.parse(event?.target?.result as string);
       setQuestions(json);
 
-      console.log("[INFO] Questions file parsed!");
+      const basename = file.name.replace(/\.[^/.]+$/, "");
+      setFileName(basename);
     };
     reader.readAsText(file);
   };
+
+  useEffect(() => {
+    document.title = fileName;
+  }, [fileName]);
 
   return (
     <div className="w-full">
