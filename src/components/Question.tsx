@@ -27,7 +27,7 @@ const Question = ({ question, index }: QuestionProps) => {
   }, [question]);
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
+    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
       <div className="mb-6">
         <h2 className="text-lg font-medium text-gray-900">
           {`${index + 1}. ${question.question}`}
@@ -52,7 +52,7 @@ const Question = ({ question, index }: QuestionProps) => {
             />
             <div>
               <span className="font-medium">{choice.key}) </span>
-              <span>{choice.value}</span>
+              <span className="break-words">{choice.value}</span>
             </div>
           </label>
         ))}

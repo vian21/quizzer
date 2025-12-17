@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container w-full">
+    <div className="w-full">
       <center className="mt-8 px-2">
         <FileUploader
           handleChange={handleChange}
