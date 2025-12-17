@@ -19,3 +19,66 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  /* Make layout more compact for printing */
+  body {
+    font-size: 11pt;
+    line-height: 1.3;
+  }
+
+  /* Prevent page breaks inside questions */
+  .question-container {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Prevent page breaks inside choice labels */
+  .choice-label {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Prevent page breaks inside explanation boxes */
+  .explanation-box {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Reduce margins and padding for print */
+  .question-container {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+  }
+
+  /* Hide file uploader and show answers button when printing */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Adjust spacing for choices */
+  .choice-label {
+    padding: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Reduce heading sizes */
+  h2 {
+    font-size: 12pt !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Adjust button spacing */
+  button {
+    padding: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Reduce shadow for print */
+  .question-container {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+  }
+}
