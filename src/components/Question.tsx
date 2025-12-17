@@ -39,13 +39,13 @@ const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
 
   return (
     <div className="question-container max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
-      <div className="mb-6">
+      <div className="question-heading mb-6">
         <h2 className="text-lg font-medium text-gray-900">
           {`${index + 1}. ${question.question}`}
         </h2>
       </div>
 
-      <div className="space-y-3">
+      <div className="choices-container space-y-3">
         {question.choices.map((choice, key) => (
           <label
             key={key}
@@ -69,7 +69,7 @@ const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
         ))}
       </div>
 
-      <div className="mt-6 space-y-4">
+      <div className="button-container mt-6 space-y-4">
         <button
           onClick={handleSubmit}
           disabled={!selectedChoice}
@@ -91,9 +91,7 @@ const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
             >
               {isCorrect ? "Correct!" : "Incorrect."}
             </p>
-            <p className="mt-2 text-sm text-gray-600">
-              {isCorrect ? question.explanation : null}
-            </p>
+            <p className="mt-2 text-sm text-gray-600">{question.explanation}</p>
           </div>
         )}
       </div>
