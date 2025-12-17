@@ -11,16 +11,17 @@ export default function Home() {
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [fileName, setFileName] = useState<string>("");
 
-  const handleChange = (file: File) => {
+  const handleChange = (file: File | File[]) => {
+    const targetFile = Array.isArray(file) ? file[0] : file;
     const reader = new FileReader();
     reader.onload = (event) => {
       const json = JSON.parse(event?.target?.result as string);
       setQuestions(json);
 
-      const basename = file.name.replace(/\.[^/.]+$/, "");
+      const basename = targetFile.name.replace(/\.[^/.]+$/, "");
       setFileName(basename);
     };
-    reader.readAsText(file);
+    reader.readAsText(targetFile);
   };
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function Home() {
           handleChange={handleChange}
           name="file"
           types={fileTypes}
+          multiple={false}
         />
       </center>
 
