@@ -8,9 +8,10 @@ interface QuestionProps {
     explanation: string;
   };
   index: number;
+  showAllAnswers: boolean;
 }
 
-const Question = ({ question, index }: QuestionProps) => {
+const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const isCorrect = selectedChoice === question.answer;
@@ -25,6 +26,16 @@ const Question = ({ question, index }: QuestionProps) => {
     setSelectedChoice(null);
     setShowExplanation(false);
   }, [question]);
+
+  useEffect(() => {
+    if (showAllAnswers) {
+      setSelectedChoice(question.answer);
+      setShowExplanation(true);
+    } else {
+      setSelectedChoice(null);
+      setShowExplanation(false);
+    }
+  }, [showAllAnswers, question.answer]);
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
