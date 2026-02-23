@@ -4,7 +4,7 @@ interface QuestionProps {
   question: {
     question: string;
     choices: { key: string; value: string }[];
-    answer: string;
+    answer: string | string[];
     explanation: string;
   };
   index: number;
@@ -12,30 +12,57 @@ interface QuestionProps {
 }
 
 const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
+  const isMultiple = Array.isArray(question.answer);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
+  const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
-  const isCorrect = selectedChoice === question.answer;
+
+  const correctAnswers: string[] = isMultiple ? question.answer as string[] : [question.answer as string];
+  const isCorrect = isMultiple
+    ? selectedChoices.length === correctAnswers.length &&
+      correctAnswers.every((a) => selectedChoices.includes(a))
+    : selectedChoice === question.answer;
+
+  const handleSingleSelect = (choiceKey: string) => {
+    setSelectedChoice(choiceKey);
+    setShowExplanation(false);
+  };
+
+  const handleMultipleSelect = (choiceKey: string) => {
+    setSelectedChoices((prev) =>
+      prev.includes(choiceKey)
+        ? prev.filter((k) => k !== choiceKey)
+        : [...prev, choiceKey]
+    );
+    setShowExplanation(false);
+  };
 
   const handleSubmit = () => {
-    if (selectedChoice) {
+    if (isMultiple ? selectedChoices.length > 0 : selectedChoice) {
       setShowExplanation(true);
     }
   };
 
   useEffect(() => {
     setSelectedChoice(null);
+    setSelectedChoices([]);
     setShowExplanation(false);
   }, [question]);
 
   useEffect(() => {
     if (showAllAnswers) {
-      setSelectedChoice(question.answer);
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      setSelectedChoices(correctAnswers);
+      if (!isMultiple) {
+        setSelectedChoice(question.answer as string);
+      }
       setShowExplanation(true);
     } else {
       setSelectedChoice(null);
+      setSelectedChoices([]);
       setShowExplanation(false);
     }
-  }, [showAllAnswers, question.answer]);
+  }, [showAllAnswers, question.answer, isMultiple]);
 
   return (
     <div className="question-container max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
@@ -51,16 +78,23 @@ const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
             key={key}
             className="choice-label flex items-start space-x-3 p-3 rounded border cursor-pointer hover:bg-gray-50"
           >
-            <input
-              type="radio"
-              value={choice.key}
-              checked={selectedChoice === choice.key}
-              onChange={() => {
-                setSelectedChoice(choice.key);
-                setShowExplanation(false);
-              }}
-              className="mt-1"
-            />
+            {isMultiple ? (
+              <input
+                type="checkbox"
+                value={choice.key}
+                checked={selectedChoices.includes(choice.key)}
+                onChange={() => handleMultipleSelect(choice.key)}
+                className="mt-1"
+              />
+            ) : (
+              <input
+                type="radio"
+                value={choice.key}
+                checked={selectedChoice === choice.key}
+                onChange={() => handleSingleSelect(choice.key)}
+                className="mt-1"
+              />
+            )}
             <div>
               <span className="font-medium">{choice.key}) </span>
               <span className="break-words">{choice.value}</span>
@@ -72,7 +106,7 @@ const Question = ({ question, index, showAllAnswers }: QuestionProps) => {
       <div className="button-container mt-6 space-y-4">
         <button
           onClick={handleSubmit}
-          disabled={!selectedChoice}
+          disabled={isMultiple ? selectedChoices.length === 0 : !selectedChoice}
           className="no-print w-full px-4 py-2 text-sm text-white font-bold bg-blue-400 rounded-md hover:bg-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Submit
